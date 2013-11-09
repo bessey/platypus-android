@@ -17,13 +17,13 @@
             android:text="@string/app_name"
             android:id="@+id/textView"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/"/>
+            android:textColor="@color/title_menu_text" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Button"
             android:id="@+id/button"
-            android:layou/>
+           />
     </LinearLayout>
 </LinearLayout>
