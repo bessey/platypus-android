@@ -1,8 +1,5 @@
 package io.platypus;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -11,17 +8,8 @@ import com.facebook.widget.LoginButton;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
-import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 public class LoginActivity extends Activity {
 

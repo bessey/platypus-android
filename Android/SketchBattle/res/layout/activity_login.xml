@@ -2,7 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#f5f5f5" >
+    
+    <fragment
+        android:id="@+id/login_title_bar"
+        android:name="io.platypus.ui.TitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/titlebar_layout" />
 
     <com.facebook.widget.LoginButton
         android:id="@+id/btnFacebookLogin"
