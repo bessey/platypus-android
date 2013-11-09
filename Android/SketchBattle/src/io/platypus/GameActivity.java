@@ -1,8 +1,6 @@
 package io.platypus;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +16,7 @@ import android.provider.MediaStore;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
@@ -27,13 +26,15 @@ public class GameActivity extends Activity implements OnClickListener {
     private DrawingView drawView;
     //buttons
     private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
+    private ImageButton menuButton;
+    
     //sizes
     private float smallBrush, mediumBrush, largeBrush;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
 
         //get drawing view
         drawView = (DrawingView)findViewById(R.id.drawing);
@@ -64,8 +65,8 @@ public class GameActivity extends Activity implements OnClickListener {
    //     newBtn.setOnClickListener(this);
 
         //save button
-   //     saveBtn = (ImageButton)findViewById(R.id.save_btn);
-   //     saveBtn.setOnClickListener(this);
+        menuButton = (ImageButton)findViewById(R.id.btn_menu);
+        menuButton.setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +98,18 @@ public class GameActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View view){
 
+    	
+    	
+    	
+    	  switch (view.getId()) 
+          {
+                  case R.id.btn_menu:
+                          Intent menuIntent = new Intent(this, MenuActivity.class);
+                          startActivity(menuIntent);
+                          
+                          break;
+          }
+    	
 
     }
 

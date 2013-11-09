@@ -43,7 +43,7 @@ public class DrawingView extends View {
     private void setupDrawing(){
 
         //prepare for drawing and setup paint stroke properties
-        brushSize = getResources().getInteger(R.integer.medium_size);
+        brushSize = getResources().getInteger(R.integer.small_size);
         lastBrushSize = brushSize;
         drawPath = new Path();
         drawPaint = new Paint();
@@ -69,7 +69,13 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
+        
+        //Capture the draw path here and transmit it
     }
+    
+    
+    
+    
 
     //register user touches as drawing action
     @Override
