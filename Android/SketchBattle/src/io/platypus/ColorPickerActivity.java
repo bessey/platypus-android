@@ -63,103 +63,6 @@ public class ColorPickerActivity extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-<<<<<<< HEAD
-	
-	
-	
-    public void onClick(View v)
-    {
-            try
-            {
-            	View colorbutton;
-                        switch (v.getId()) 
-                        {
-                                case R.id.colorbtn_dark_brown:
-                                	 colorbutton = findViewById(R.id.colorbtn_dark_brown);
-                                	colorSelected(colorbutton ,1);
-                                    finish();
-                                    break;
-                                case R.id.colorbtn_red:
-                                	 colorbutton = findViewById(R.id.colorbtn_red);
-                                	colorSelected(colorbutton ,2);
-                                    finish();
-                                    break;
-                                case R.id.colorbtn_orange:
-                                	 colorbutton = findViewById(R.id.colorbtn_orange);
-                                	colorSelected(colorbutton ,3);
-            
-                                    break;
-                                case R.id.colorbtn_yellow:
-                                	 colorbutton = findViewById(R.id.colorbtn_yellow);
-                                	colorSelected(colorbutton ,4);
-                                    break;
-                                case R.id.colorbtn_green:
-                                	 colorbutton = findViewById(R.id.colorbtn_green);
-                                	colorSelected(colorbutton ,5);
-                                    break;
-                                case R.id.colorbtn_light_blue:
-                                	 colorbutton = findViewById(R.id.colorbtn_light_blue);
-                                	colorSelected(colorbutton,6);
-                                    break;
-                                case R.id.colorbtn_dark_blue:
-                                	 colorbutton = findViewById(R.id.colorbtn_dark_blue);
-                                	colorSelected(colorbutton,7);
-                                    break;
-                                case R.id.colorbtn_purple:
-                                	 colorbutton = findViewById(R.id.colorbtn_purple);
-                                	colorSelected(colorbutton,8);
-                                    break;
-                                case R.id.colorbtn_pink:
-                                	 colorbutton = findViewById(R.id.colorbtn_pink);
-                                	colorSelected(colorbutton,9);
-                                    break;
-                                case R.id.colorbtn_white:
-                                	 colorbutton = findViewById(R.id.colorbtn_white);
-                                	colorSelected(colorbutton,10);
-                                    break;
-                                case R.id.colorbtn_grey:
-                                	 colorbutton = findViewById(R.id.colorbtn_grey);
-                                	colorSelected(colorbutton,11);
-                                    break;
-                                case R.id.colorbtn_black:
-                                	 colorbutton = findViewById(R.id.colorbtn_black);
-                                	colorSelected(colorbutton,12);
-                                    break;
-                        }
-            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-            catch(Exception ex)
-            {
-                        Context context = getApplicationContext();
-                        CharSequence text = ex.toString();
-                        int duration = Toast.LENGTH_LONG;
-
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-            }
-    }
-    
-    
-    private void colorSelected(View colorbutton , int colorID)
-    {
-    	String color = colorbutton.getTag().toString();
-    	
-    	Intent gameIntent = new Intent(this, GameActivity.class);
-    	gameIntent.putExtra("color", color);
-    	gameIntent.putExtra("colorID", colorID);
-    	String drawObject = "Dog";
-    	gameIntent.putExtra("drawObject", drawObject);
-        startActivity(gameIntent);
-    	
-    }
-    
-    
-   
-    	
-    
-	
-	
-	
-=======
 
 	public void onClick(View v) {
 		try {
@@ -232,11 +135,16 @@ public class ColorPickerActivity extends Activity implements OnClickListener {
 
 		Intent gameIntent = new Intent(this, GameActivity.class);
 		gameIntent.putExtra("color", color);
+    	gameIntent.putExtra("colorID", color);
 		String drawObject = "Dog";
 		gameIntent.putExtra("drawObject", drawObject);
 		startActivity(gameIntent);
 
 	}
->>>>>>> 69da312b19d7aba43d713584925d41cf28fcd953
+    
+    
+   
+    	
+    
 
 }

@@ -64,39 +64,12 @@ public class MatchMakerActivity extends Activity {
 
 	private void waitingTextAnimation() {
 		final Handler handler = new Handler();
-<<<<<<< HEAD
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 5s = 5000ms
-           //    buttons[inew][jnew].setBackgroundColor(Color.BLACK);
-            	TextView findingText = (TextView)findViewById(R.id.drawobject_text);
-            	
-            	String ftext = "Finding game";
-        		
-        		for(int i = 0 ; i <dotCount ; i++)
-        		{
-        			ftext+= ".";
-        		}
-        		
-            	findingText.setText(ftext);
-            	
-            	dotCount++;
-            	
-            	if(dotCount > 3)
-            	{
-            		dotCount = 1; 
-            		}
-            	waitingTextAnimation();
-            }
-        }, 800);
-=======
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				// Do something after 5s = 5000ms
 				// buttons[inew][jnew].setBackgroundColor(Color.BLACK);
-				TextView findingText = (TextView) findViewById(R.id.waiting_text);
+				TextView findingText = (TextView) findViewById(R.id.drawobject_text);
 
 				String ftext = "Finding game";
 
@@ -114,7 +87,6 @@ public class MatchMakerActivity extends Activity {
 				waitingTextAnimation();
 			}
 		}, 800);
->>>>>>> 69da312b19d7aba43d713584925d41cf28fcd953
 	}
 
 	private void moveToColorScreen() {
