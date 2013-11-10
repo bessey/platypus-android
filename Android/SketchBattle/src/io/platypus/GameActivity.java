@@ -64,6 +64,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			String player_id = (String) snapshot.child("player_id").getValue();
 
 			if (player_id != game.getCurrentPlayer().getId()) {
+				Log.e("dw", "drawPoint");
 				double x = (Double) snapshot.child("x").getValue();
 				double y = (Double) snapshot.child("y").getValue();
 
