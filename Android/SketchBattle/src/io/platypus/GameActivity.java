@@ -31,6 +31,9 @@ public class GameActivity extends Activity implements OnClickListener {
     //sizes
     private float smallBrush, mediumBrush, largeBrush;
 
+    private String drawObject;
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,17 @@ public class GameActivity extends Activity implements OnClickListener {
         //get drawing view
         drawView = (DrawingView)findViewById(R.id.drawing);
 
+        
+        
+        
+        //set draw item
+        
+        Bundle b = new Bundle();
+        b = getIntent().getExtras();
+        String color = b.getString("color");
+        
+        drawView.setColor(color);
+        
         //get the palette and first color button
      //   LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
       //  currPaint = (ImageButton)paintLayout.getChildAt(0);

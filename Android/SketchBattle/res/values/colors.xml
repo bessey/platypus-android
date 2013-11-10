@@ -6,6 +6,6 @@
     <color name="title_menu_text">#FFFFFF</color>
     
         <color name="draw_a_background">#19A3FF</color>
-    
+    <color name="color_picker_item_background">#d1d1d1</color>
     
 </resources>

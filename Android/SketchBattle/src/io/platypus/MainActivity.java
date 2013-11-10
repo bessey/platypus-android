@@ -13,8 +13,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		
-		   Intent gameIntent = new Intent(this, GameActivity.class);
-           startActivity(gameIntent);
+		   Intent colorActivity = new Intent(this, MatchMakerActivity.class);
+           startActivity(colorActivity);
 		
 	}
 
