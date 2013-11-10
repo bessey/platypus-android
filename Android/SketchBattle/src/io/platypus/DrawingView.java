@@ -184,32 +184,49 @@ public class DrawingView extends View {
 			drawPaint.setXfermode(null);
 	}
 
+	
+	
+	
+	float lastX = -1;
+	float lastY = -1;
+	
 	public void addPoint(DrawPoint point, DrawPoint end) {
 
-		float startX = this.getWidth() * point.x;
-		float startY = this.getHeight() * point.y;
-		float endX = this.getWidth() * end.x;
-		float endY = this.getHeight() * end.y;
-
-		String colorString = getColor(point.color);
-
-		int tempColor = Color.parseColor(colorString);
-
-		Paint tempPaint = new Paint();
-		tempPaint.setColor(tempColor);
-		tempPaint.setAntiAlias(true);
-		tempPaint.setStrokeWidth(brushSize);
-		tempPaint.setStyle(Paint.Style.STROKE);
-		tempPaint.setStrokeJoin(Paint.Join.ROUND);
-		tempPaint.setStrokeCap(Paint.Cap.ROUND);
-
-		Path tempPath = new Path();
-		tempPath.moveTo(startX, startY);
-		tempPath.lineTo(endX, endY);
-		drawCanvas.drawPath(tempPath, tempPaint);
-
-		// redraw
-		invalidate();
+		if(lastX != -1)
+		{
+			float startX = this.getWidth() * point.x;
+			float startY = this.getHeight() * point.y;
+			float endX = this.getWidth() * lastX;
+			float endY = this.getHeight() * lastY;
+	
+			lastX = point.x;
+			lastY = point.y;
+			
+			String colorString = getColor(point.color);
+	
+			int tempColor = Color.parseColor(colorString);
+	
+			Paint tempPaint = new Paint();
+			tempPaint.setColor(tempColor);
+			tempPaint.setAntiAlias(true);
+			tempPaint.setStrokeWidth(brushSize);
+			tempPaint.setStyle(Paint.Style.STROKE);
+			tempPaint.setStrokeJoin(Paint.Join.ROUND);
+			tempPaint.setStrokeCap(Paint.Cap.ROUND);
+	
+			Path tempPath = new Path();
+			tempPath.moveTo(startX, startY);
+			tempPath.lineTo(endX, endY);
+			drawCanvas.drawPath(tempPath, tempPaint);
+	
+			// redraw
+			invalidate();
+		}
+		else
+		{
+			lastX = point.x;
+			lastY = point.y;
+		}
 	}
 
 	private String getColor(int id) {

@@ -119,12 +119,14 @@ public class GameActivity extends Activity implements OnClickListener {
 		firebaseEndpoint.child("games/" + game.getId() + "/points")
 				.addChildEventListener(pointListener);
 
-		/*
-		 * drawtester = new DrawTester(drawView, 3); drawtester2 = new
-		 * DrawTester(drawView, 7); drawtester3 = new DrawTester(drawView, 8);
-		 * drawtester.autoDraw(); drawtester2.autoDraw();
-		 * drawtester3.autoDraw();
-		 */
+		
+		  drawtester = new DrawTester(drawView, 3); 
+	//	  drawtester2 = newDrawTester(drawView, 7);
+	//	  drawtester3 = new DrawTester(drawView, 8);
+//		  drawtester.autoDraw(); 
+		  //drawtester2.autoDraw();
+	//	  drawtester3.autoDraw();
+		 
 
 		setTextBoxListener();
 

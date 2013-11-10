@@ -10,6 +10,7 @@ public class DrawPoint
 	public int color;
 	public boolean isEnd;
 	public long timestamp;
+	public String playerID;
 	
 	public DrawPoint(float x , float y , int color , boolean isEnd)
 	{
