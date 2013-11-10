@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ColorPickerActivity extends Activity implements OnClickListener {
@@ -27,8 +28,11 @@ public class ColorPickerActivity extends Activity implements OnClickListener {
 		drawObject = b.getString("drawObject");
 		game = (Game) b.getParcelable("game");
 		
-		Log.e("DJID", game.getId());
-
+		Log.e("ROLE", game.getCurrentPlayer().getRole());
+		
+		TextView answer = (TextView) findViewById(R.id.answer);
+		answer.setText(game.getAnswer());
+		
 		// Intent gameIntent = new Intent(this, GameActivity.class);
 		// startActivity(gameIntent);
 

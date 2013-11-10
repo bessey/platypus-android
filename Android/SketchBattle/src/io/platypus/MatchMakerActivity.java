@@ -65,7 +65,7 @@ public class MatchMakerActivity extends Activity {
 				Game game;
 				try {
 					game = currentPlayer.findNewGame();
-					game.addPlayer(currentPlayer);
+//					game.addPlayer(currentPlayer);
 					waitForGameParticipants(game);
 					Log.e(TAG, game.getId());
 				} catch (IOException e) {
@@ -77,30 +77,24 @@ public class MatchMakerActivity extends Activity {
 	
 	private void waitForGameParticipants(final Game game) {
 		final Firebase game_endpoint = new Firebase(
-				Game.FIRBASE_GAME_URI + "/games/" + game.getId());
+				Game.FIRBASE_GAME_URI + "/games/" + game.getId() + "/players/" + currentPlayer.getId());
 
 		ValueEventListener participantListener = new ValueEventListener() {	
 			@Override
 			public void onDataChange(DataSnapshot snapshot) {
-				Object value = snapshot.getValue();
-				Long current_count = (Long) ((Map) value).get("player_count");
-				Log.e(TAG, Long.toString(current_count));
-				if(current_count == 5) {
-					moveToColorScreen(game);
-					game_endpoint.removeEventListener(this);
-				}
+				String role = (String) snapshot.getValue();
+				game.getCurrentPlayer().setRole(role);
+				moveToColorScreen(game);
 			}
 			
 			@Override
 			public void onCancelled() {}
 		};
 		
-		game_endpoint.addValueEventListener(participantListener);
-			
+		game_endpoint.addListenerForSingleValueEvent(participantListener);		
 	}
 	
 	
-
 	private void waitingTextAnimation() {
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {

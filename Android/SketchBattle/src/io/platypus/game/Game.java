@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -22,14 +23,61 @@ public class Game implements Parcelable {
 	
 	private Player current_player;
 	
+	private String answer;
+	
+	private static final String ROLE_GUESSER  = "guesser";
+	private static final String ROLE_DRAWER   = "drawer";
+	
+	private String current_player_role;
+	
+	private int no_guesses = 0;
+	
 	public Game(String id) {
 		this.id = id;
 		firebase = new Firebase(FIRBASE_GAME_URI);
+		
+		// Get the answer
+		firebase.child("games/" + this.id + "/word").addListenerForSingleValueEvent(new ValueEventListener() {	
+			@Override
+			public void onDataChange(DataSnapshot snapshot) {
+				answer = (String) snapshot.getValue();
+			}
+			
+			@Override
+			public void onCancelled() {}
+		});
+		
+		firebase.child("games/" + this.id + "/players/" + current_player.getId() + "/role")
+			.addListenerForSingleValueEvent(new ValueEventListener() {
+				
+			@Override
+			public void onDataChange(DataSnapshot snapshot) {
+				current_player_role = (String) snapshot.getValue();
+				Log.e("ROLE", current_player_role);
+			}
+				
+			@Override
+			public void onCancelled() {}
+		});
 	}
-	
+
 	public Game(Parcel obj) {
 		this.id = obj.readString();
 		this.current_player = obj.readParcelable(Player.class.getClassLoader());
+		this.answer = obj.readString();
+		
+		/*if(this.answer == null || this.answer.length() <= 0) {
+			// Get the answer
+			firebase.child("word").addListenerForSingleValueEvent(new ValueEventListener() {	
+				@Override
+				public void onDataChange(DataSnapshot snapshot) {
+					answer = (String) snapshot.getValue();
+				}
+				
+				@Override
+				public void onCancelled() {}
+			});			
+		}*/
 		firebase = new Firebase(FIRBASE_GAME_URI);
 	}
 	
@@ -54,6 +102,17 @@ public class Game implements Parcelable {
 			@Override
 			public void onCancelled() {}
 		});
+		
+		player_node.child("role").addListenerForSingleValueEvent(new ValueEventListener() {
+			
+			@Override
+			public void onDataChange(DataSnapshot snapshot) {
+				current_player_role = (String) snapshot.getValue();
+			}
+			
+			@Override
+			public void onCancelled() {}
+		});	
 	}
 	
 	public String getId() {
@@ -77,6 +136,18 @@ public class Game implements Parcelable {
 		firebaseMap.put("player_id", current_player.getId());
 		new_point_node.setValue(firebaseMap);	
 	}
+	
+	public String getAnswer() {
+		return this.answer;
+	}
+	
+	public boolean checkAnswer(String guess) {
+		++no_guesses;
+		if(guess.toLowerCase() == answer.toLowerCase()) {
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public int describeContents() {
@@ -87,6 +158,7 @@ public class Game implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(this.id);
 		dest.writeParcelable(getCurrentPlayer(), 0);
+		dest.writeString(this.answer);
 	}
 	
 	// Parcelalisable

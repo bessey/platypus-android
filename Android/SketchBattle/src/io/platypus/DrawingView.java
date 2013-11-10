@@ -139,7 +139,6 @@ public class DrawingView extends View {
 		float convertedY = y / this.getHeight();
 
 		DrawPoint drawPoint = new DrawPoint(convertedX, convertedY,colorNumber, true , "PLAYER");
-		//Log.e("DD", this.game.getId());
 		this.game.addPoint(convertedX, convertedY, colorNumber ,isEnd );
 		drawPoints.add(drawPoint);
 	}

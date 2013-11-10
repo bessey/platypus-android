@@ -1,40 +1,24 @@
 package io.platypus;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
-import android.webkit.ValueCallback;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import io.platypus.drawing.DrawPoint;
 import io.platypus.drawing.DrawTester;
 import io.platypus.game.Game;
-
-import java.util.Map;
-import java.util.UUID;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.ValueEventListener;
 
-import android.provider.MediaStore;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnClickListener {
 
@@ -57,6 +41,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	DrawTester drawtester3;
 
 	Firebase firebaseEndpoint;
+	
 	private ChildEventListener pointListener = new ChildEventListener() {
 
 		@Override
@@ -64,7 +49,6 @@ public class GameActivity extends Activity implements OnClickListener {
 			String player_id = (String) snapshot.child("player_id").getValue();
 
 			if (player_id != game.getCurrentPlayer().getId()) {
-				Log.e("dw", "drawPoint");
 				double x = (Double) snapshot.child("x").getValue();
 				double y = (Double) snapshot.child("y").getValue();
 				long color_id = (Long) snapshot.child("color_id").getValue();
@@ -94,6 +78,27 @@ public class GameActivity extends Activity implements OnClickListener {
 		public void onCancelled() {
 		}
 	};
+	
+	
+	public static final String STATE_MATCMAKING = "matchmaking";
+	public static final String STATE_PICKING_COLOUR = "picking_colour";
+	public static final String STATE_PLAYING = "playing";
+	public static final String STATE_VOTING = "voting";
+	public static final String STATE_SUMMARY = "summary";
+	
+	private ValueEventListener state_listener = new ValueEventListener() {	
+		@Override
+		public void onDataChange(DataSnapshot snapshot) {
+			String state = (String) snapshot.getValue();
+						
+			if(state.equals(STATE_VOTING)) {
+				drawView.setDrawing(false);
+			}
+		}
+		
+		@Override
+		public void onCancelled() {}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +125,9 @@ public class GameActivity extends Activity implements OnClickListener {
 
 		// set initial size
 		drawView.setBrushSize(activeBrush);
+		
+		firebaseEndpoint.child("games/" + game.getId() + "/state")
+				.addValueEventListener(state_listener);
 
 		firebaseEndpoint.child("games/" + game.getId() + "/points")
 				.addChildEventListener(pointListener);

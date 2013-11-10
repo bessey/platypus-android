@@ -26,6 +26,8 @@ public class Player implements Parcelable {
 	protected String name;
 	protected String profile_picture_url;
 	
+	private String role;
+	
 	protected Game current_game;
 	
 	public Player(String id, String name, String profile_picture_url) {
@@ -43,6 +45,7 @@ public class Player implements Parcelable {
 	public Game findNewGame() throws IOException {
 		URL matchUrl = new URL(MATCH_URI);
 		HttpURLConnection matchConnection = (HttpURLConnection) matchUrl.openConnection();
+		matchConnection.setConnectTimeout(300000);
 		
 		matchConnection.setRequestMethod("POST");
 		matchConnection.setDoOutput(true);
@@ -100,6 +103,14 @@ public class Player implements Parcelable {
 		dest.writeString(this.id);
 		dest.writeString(this.name);
 		dest.writeString(this.profile_picture_url);
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public String getRole() {
+		return this.role;
 	}
 	
 	// Parcelalisable
