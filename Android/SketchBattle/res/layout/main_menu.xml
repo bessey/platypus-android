@@ -5,14 +5,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/draw_a_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/waiting_text"
+        android:id="@+id/drawobject_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medium Text"

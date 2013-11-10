@@ -15,21 +15,23 @@
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="3dp"
         android:layout_weight="1"
         android:background="#FFFFFFFF" />
 
+    
+    <!--
  <include
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      layout="@layout/guess_item" />
  
+ -->
  
-  
+   <include
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     layout="@layout/guesser_bar" />
  
- k
+ 
 
 </LinearLayout>

@@ -20,19 +20,19 @@
             android:id="@+id/draw_a_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/drawobject_text"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="Draw a: "
+            android:text="  "
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/drawobject_text"
+        <EditText
+            android:id="@+id/editText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Cat"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
 
     </RelativeLayout>
 

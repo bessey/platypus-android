@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import io.platypus.drawing.DrawTester;
+
 import java.util.UUID;
 import android.provider.MediaStore;
 import android.app.AlertDialog;
@@ -25,14 +27,20 @@ public class GameActivity extends Activity implements OnClickListener {
     //custom drawing view
     private DrawingView drawView;
     //buttons
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
+    private ImageButton currPaint;
     private ImageButton menuButton;
     
     //sizes
-    private float smallBrush, mediumBrush, largeBrush;
+    private float  activeBrush;
 
-    private String drawObject;
+   
+    private int colorID;
+    private boolean isDrawing;
     
+    
+    DrawTester drawtester;
+    DrawTester drawtester2;
+    DrawTester drawtester3;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,42 +50,29 @@ public class GameActivity extends Activity implements OnClickListener {
         //get drawing view
         drawView = (DrawingView)findViewById(R.id.drawing);
 
-        
-        
-        
-        //set draw item
-        
+        drawView.setDrawing(false);
+
+        //Extract Bundle
         Bundle b = new Bundle();
         b = getIntent().getExtras();
         String color = b.getString("color");
+        colorID = b.getInt("colorID" );
         
-        drawView.setColor(color);
+        drawView.setColor(colorID);
+        activeBrush = getResources().getInteger(R.integer.small_size);
         
-        //get the palette and first color button
-     //   LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
-      //  currPaint = (ImageButton)paintLayout.getChildAt(0);
-     //   currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-
-        //sizes from dimensions
-        smallBrush = getResources().getInteger(R.integer.small_size);
-        mediumBrush = getResources().getInteger(R.integer.medium_size);
-        largeBrush = getResources().getInteger(R.integer.large_size);
-
-        //draw button
-    //    drawBtn = (ImageButton)findViewById(R.id.draw_btn);
-     //   drawBtn.setOnClickListener(this);
-
         //set initial size
-        drawView.setBrushSize(mediumBrush);
+        drawView.setBrushSize(activeBrush);
 
-        //erase button
-    //    eraseBtn = (ImageButton)findViewById(R.id.erase_btn);
-   //     eraseBtn.setOnClickListener(this);
-
-        //new button
-   //     newBtn = (ImageButton)findViewById(R.id.new_btn);
-   //     newBtn.setOnClickListener(this);
-
+ 
+        
+        drawtester = new DrawTester(drawView , 3);
+        drawtester2 = new DrawTester(drawView , 7);
+        drawtester3 = new DrawTester(drawView , 8);
+        drawtester.autoDraw();
+        drawtester2.autoDraw();
+        drawtester3.autoDraw();
+        
         //save button
         menuButton = (ImageButton)findViewById(R.id.btn_menu);
         menuButton.setOnClickListener(this);
@@ -90,41 +85,22 @@ public class GameActivity extends Activity implements OnClickListener {
         return true;
     }
 
-    //user clicked paint
-    public void paintClicked(View view){
-        //use chosen color
-
-        //set erase false
-        drawView.setErase(false);
-        drawView.setBrushSize(drawView.getLastBrushSize());
-
-        if(view!=currPaint){
-            ImageButton imgView = (ImageButton)view;
-            String color = view.getTag().toString();
-            drawView.setColor(color);
-            //update ui
-      //      imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-       //     currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            currPaint=(ImageButton)view;
-        }
-    }
-
+    
     @Override
     public void onClick(View view){
-
-    	
-    	
-    	
     	  switch (view.getId()) 
           {
                   case R.id.btn_menu:
                           Intent menuIntent = new Intent(this, MenuActivity.class);
                           startActivity(menuIntent);
-                          
                           break;
           }
-    	
-
+    }
+    
+    
+    public DrawingView getDrawView()
+    {
+    	return drawView;
     }
 
 }

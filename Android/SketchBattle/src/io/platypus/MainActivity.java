@@ -13,8 +13,15 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		
-		   Intent colorActivity = new Intent(this, MatchMakerActivity.class);
-           startActivity(colorActivity);
+		//   Intent colorActivity = new Intent(this, MatchMakerActivity.class);
+         //  startActivity(colorActivity);
+		
+		String color = "#FF660000";
+		Intent mainActivity = new Intent(this, GameActivity.class);
+		mainActivity.putExtra("color", color);
+    	String drawObject = "Dog";
+    	mainActivity.putExtra("drawObject", drawObject);
+        startActivity(mainActivity);
 		
 	}
 

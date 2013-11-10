@@ -62,7 +62,7 @@ public class MatchMakerActivity extends Activity {
             public void run() {
                 // Do something after 5s = 5000ms
            //    buttons[inew][jnew].setBackgroundColor(Color.BLACK);
-            	TextView findingText = (TextView)findViewById(R.id.waiting_text);
+            	TextView findingText = (TextView)findViewById(R.id.drawobject_text);
             	
             	String ftext = "Finding game";
         		
