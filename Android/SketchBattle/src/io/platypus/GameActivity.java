@@ -67,10 +67,14 @@ public class GameActivity extends Activity implements OnClickListener {
 				Log.e("dw", "drawPoint");
 				double x = (Double) snapshot.child("x").getValue();
 				double y = (Double) snapshot.child("y").getValue();
-
-				drawView.addPoint(
-						new DrawPoint((float) x, (float) y, 1, false), 
-						new DrawPoint((float) x, (float) y, 1, false));
+				int color_id = (Integer) snapshot.child("color_id").getValue();
+				boolean is_end = (Boolean) snapshot.child("is_end").getValue();
+				
+			//	double color_id = 2;
+			//	boolean is_end = false;
+				
+				
+				drawView.addPoint(new DrawPoint((float) x, (float) y, (int)color_id, is_end,player_id ));
 			}
 		}
 
@@ -121,10 +125,10 @@ public class GameActivity extends Activity implements OnClickListener {
 				.addChildEventListener(pointListener);
 
 		
-		  drawtester = new DrawTester(drawView, 3); 
+		  drawtester = new DrawTester(drawView, 3 , "botID"); 
 	//	  drawtester2 = newDrawTester(drawView, 7);
 	//	  drawtester3 = new DrawTester(drawView, 8);
-//		  drawtester.autoDraw(); 
+	//  drawtester.autoDraw(); 
 		  //drawtester2.autoDraw();
 	//	  drawtester3.autoDraw();
 		 

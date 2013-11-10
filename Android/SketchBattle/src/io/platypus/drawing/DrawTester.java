@@ -16,13 +16,16 @@ public class DrawTester
 	
 	Random random = new Random();
 	
-	public DrawTester(DrawingView drawView, int color)
+	private String botID ;
+	
+	public DrawTester(DrawingView drawView, int color , String id)
 	{
 		this.drawView = drawView;
 		this.color = color;
 		
 		lastX = random.nextFloat();
 		lastY = random.nextFloat();
+		this.botID = id;
 	}
 	
 	
@@ -62,13 +65,13 @@ public class DrawTester
 		
 		}while(distance > 0.1f);
 			
-		DrawPoint drawPoint = new DrawPoint(lastX,lastY,color,false);
-		DrawPoint drawPointE = new DrawPoint(xE,yE,color,false);
+		DrawPoint drawPoint = new DrawPoint(lastX,lastY,color,false ,botID );
+		
 		
 		lastX = xE;
 		lastY = yE;
 		
-		drawView.addPoint(drawPoint,drawPoint);
+		drawView.addPoint(drawPoint);
 	 
 	}
 	

@@ -1,6 +1,7 @@
 package io.platypus;
 
 import io.platypus.drawing.DrawPoint;
+import io.platypus.drawing.PlayerPoint;
 import io.platypus.game.Game;
 
 import java.util.ArrayList;
@@ -104,11 +105,11 @@ public class DrawingView extends View {
 			switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				drawPath.moveTo(touchX, touchY);
-				addNewDrawPoint(touchX, touchY, colorNumber, true);
+				addNewDrawPoint(touchX, touchY, colorNumber, false);
 				break;
 			case MotionEvent.ACTION_MOVE:
 				drawPath.lineTo(touchX, touchY);
-				addNewDrawPoint(touchX, touchY, colorNumber, true);
+				addNewDrawPoint(touchX, touchY, colorNumber, false);
 				break;
 			case MotionEvent.ACTION_UP:
 				drawPath.lineTo(touchX, touchY);
@@ -137,10 +138,9 @@ public class DrawingView extends View {
 		float convertedX = x / this.getWidth();
 		float convertedY = y / this.getHeight();
 
-		DrawPoint drawPoint = new DrawPoint(convertedX, convertedY,
-				colorNumber, true);
+		DrawPoint drawPoint = new DrawPoint(convertedX, convertedY,colorNumber, true , "PLAYER");
 		//Log.e("DD", this.game.getId());
-		this.game.addPoint(convertedX, convertedY);
+		this.game.addPoint(convertedX, convertedY, colorNumber ,isEnd );
 		drawPoints.add(drawPoint);
 	}
 
@@ -187,12 +187,56 @@ public class DrawingView extends View {
 	
 	
 	
-	float lastX = -1;
-	float lastY = -1;
-	
-	public void addPoint(DrawPoint point, DrawPoint end) {
 
-		if(lastX != -1)
+	
+	ArrayList<PlayerPoint> playerPoints = new ArrayList<PlayerPoint>();
+	 
+	
+	public void addPoint(DrawPoint point) {
+
+		boolean draw = false;
+		float tempX = 0;
+		float tempY = 0;
+		float lastX = 0;
+		float lastY = 0;
+		
+		boolean found = false;
+		for(PlayerPoint playerPoint : playerPoints)
+		{
+			if(point.playerID.equals(playerPoint.id))
+			{
+				tempX = point.x;
+				tempY = point.y;
+				lastX = playerPoint.x;
+				lastY = playerPoint.y;
+							
+				playerPoint.x =  point.x;
+				playerPoint.y = point.y;
+				
+				if(playerPoint.isEnd == true)
+				{
+					draw = false;
+					playerPoint.isEnd  = false;
+				}
+				else
+				{
+					draw = true;
+				}
+				
+				found = true;
+				break;
+			}
+		}
+		
+		if(found == false)
+		{
+			PlayerPoint playerPoint = new PlayerPoint(point.playerID , point.x , point.y , true);
+			playerPoints.add(playerPoint);
+		}
+		
+		
+		
+		if(draw == true)
 		{
 			float startX = this.getWidth() * point.x;
 			float startY = this.getHeight() * point.y;
@@ -221,12 +265,9 @@ public class DrawingView extends View {
 	
 			// redraw
 			invalidate();
+			
 		}
-		else
-		{
-			lastX = point.x;
-			lastY = point.y;
-		}
+	
 	}
 
 	private String getColor(int id) {
