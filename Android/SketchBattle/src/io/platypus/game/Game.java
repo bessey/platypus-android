@@ -68,10 +68,11 @@ public class Game implements Parcelable {
 		Firebase points_node = firebase.getRoot().child("games/" + this.getId() + "/points");
 		Firebase new_point_node = points_node.push();
 		
-		Map<String, Float> firebaseMap = new HashMap<String, Float>();
+		Map<String, Object> firebaseMap = new HashMap<String, Object>();
 		
 		firebaseMap.put("x", x);
 		firebaseMap.put("y", y);
+		firebaseMap.put("player_id", current_player.getId());
 		new_point_node.setValue(firebaseMap);	
 	}
 
