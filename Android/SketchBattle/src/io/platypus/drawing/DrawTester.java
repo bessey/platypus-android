@@ -68,7 +68,7 @@ public class DrawTester
 		lastX = xE;
 		lastY = yE;
 		
-		drawView.addPoint(drawPoint,drawPointE);
+		drawView.addPoint(drawPoint,drawPoint);
 	 
 	}
 	
