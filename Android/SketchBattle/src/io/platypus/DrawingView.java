@@ -147,7 +147,7 @@ public class DrawingView extends View {
 	// update Color
 	public void setColor(int activeColorID) {
 		invalidate();
-		// colorNumber = activeColorID;
+		 colorNumber = activeColorID;
 		paintColor = Color.parseColor(getColor(activeColorID));
 		drawPaint.setColor(paintColor);
 	}
