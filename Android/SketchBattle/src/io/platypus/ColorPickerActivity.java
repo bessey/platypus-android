@@ -1,9 +1,11 @@
 package io.platypus;
 
+import io.platypus.game.Game;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,17 +14,25 @@ import android.widget.Toast;
 public class ColorPickerActivity extends Activity implements OnClickListener {
 
 	private String drawObject;
+	
+	private Game game;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.color_picker);
+		
+		Bundle b = new Bundle();
+		b = getIntent().getExtras();
+		drawObject = b.getString("drawObject");
+		game = (Game) b.getParcelable("game");
+		
+		Log.e("DJID", game.getId());
 
 		// Intent gameIntent = new Intent(this, GameActivity.class);
 		// startActivity(gameIntent);
 
 		setUpHandlers();
-
 	}
 
 	private void setUpHandlers() {
@@ -136,6 +146,8 @@ public class ColorPickerActivity extends Activity implements OnClickListener {
 		Intent gameIntent = new Intent(this, GameActivity.class);
 		gameIntent.putExtra("color", color);
     	gameIntent.putExtra("colorID", color);
+    	gameIntent.putExtra("game", this.game);
+    	
 		String drawObject = "Dog";
 		gameIntent.putExtra("drawObject", drawObject);
 		startActivity(gameIntent);

@@ -1,6 +1,11 @@
 package io.platypus;
 
 import java.io.IOException;
+import java.util.Map;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.ValueEventListener;
 
 import io.platypus.game.Game;
 import io.platypus.game.Player;
@@ -17,7 +22,6 @@ public class MatchMakerActivity extends Activity {
 	public static final String TAG = "MATCH MAKER";
 	
 	public Player currentPlayer;
-	public Game currentGame;
 
 	private int dotCount = 1;
 
@@ -46,7 +50,7 @@ public class MatchMakerActivity extends Activity {
 		return true;
 	}
 
-	public void matchMaker() throws IOException {
+	public void matchMaker() throws IOException {		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -54,12 +58,34 @@ public class MatchMakerActivity extends Activity {
 				try {
 					game = currentPlayer.findNewGame();
 					game.addPlayer(currentPlayer);
+					waitForGameParticipants(game);
 					Log.e(TAG, game.getId());
 				} catch (IOException e) {
 					Log.e(TAG, e.getMessage());
 				}
 			}
 		}).start();
+	}
+	
+	private void waitForGameParticipants(final Game game) {
+		Firebase game_endpoint = new Firebase(
+				Game.FIRBASE_GAME_URI + "/games/" + game.getId());
+
+		game_endpoint.addValueEventListener(
+			new ValueEventListener() {	
+					@Override
+					public void onDataChange(DataSnapshot snapshot) {
+						Object value = snapshot.getValue();
+						Long current_count = (Long) ((Map) value).get("player_count");
+						Log.e(TAG, Long.toString(current_count));
+						if(current_count == 5) {
+							moveToColorScreen(game);
+						}
+					}
+					
+					@Override
+					public void onCancelled() {}
+			});
 	}
 
 	private void waitingTextAnimation() {
@@ -89,12 +115,13 @@ public class MatchMakerActivity extends Activity {
 		}, 800);
 	}
 
-	private void moveToColorScreen() {
+	private void moveToColorScreen(Game game) {
 		Intent colorActivity = new Intent(this, ColorPickerActivity.class);
 
 		// Object to draw
 		String drawObject = "Dog";
 		colorActivity.putExtra("drawObject", drawObject);
+		colorActivity.putExtra("game", game);
 
 		startActivity(colorActivity);
 	}
