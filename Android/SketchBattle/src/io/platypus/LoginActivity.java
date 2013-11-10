@@ -87,7 +87,8 @@ public class LoginActivity extends Activity {
 	protected void goToMatchMake(Player player) {
 		Intent matchMakeActivity = new Intent(this, MatchMakerActivity.class);
 		matchMakeActivity.putExtra("player", player);
-        startActivity(matchMakeActivity);		
+        startActivity(matchMakeActivity);
+        finish();
 	}
 
 	@Override

@@ -68,24 +68,27 @@ public class MatchMakerActivity extends Activity {
 	}
 	
 	private void waitForGameParticipants(final Game game) {
-		Firebase game_endpoint = new Firebase(
+		final Firebase game_endpoint = new Firebase(
 				Game.FIRBASE_GAME_URI + "/games/" + game.getId());
 
-		game_endpoint.addValueEventListener(
-			new ValueEventListener() {	
-					@Override
-					public void onDataChange(DataSnapshot snapshot) {
-						Object value = snapshot.getValue();
-						Long current_count = (Long) ((Map) value).get("player_count");
-						Log.e(TAG, Long.toString(current_count));
-						if(current_count == 5) {
-							moveToColorScreen(game);
-						}
-					}
-					
-					@Override
-					public void onCancelled() {}
-			});
+		ValueEventListener participantListener = new ValueEventListener() {	
+			@Override
+			public void onDataChange(DataSnapshot snapshot) {
+				Object value = snapshot.getValue();
+				Long current_count = (Long) ((Map) value).get("player_count");
+				Log.e(TAG, Long.toString(current_count));
+				if(current_count == 5) {
+					moveToColorScreen(game);
+					game_endpoint.removeEventListener(this);
+				}
+			}
+			
+			@Override
+			public void onCancelled() {}
+		};
+		
+		game_endpoint.addValueEventListener(participantListener);
+			
 	}
 
 	private void waitingTextAnimation() {
@@ -124,6 +127,7 @@ public class MatchMakerActivity extends Activity {
 		colorActivity.putExtra("game", game);
 
 		startActivity(colorActivity);
+		finish();
 	}
 
 }

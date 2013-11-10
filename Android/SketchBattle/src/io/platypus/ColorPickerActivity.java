@@ -151,12 +151,6 @@ public class ColorPickerActivity extends Activity implements OnClickListener {
 		String drawObject = "Dog";
 		gameIntent.putExtra("drawObject", drawObject);
 		startActivity(gameIntent);
-
+		finish();
 	}
-    
-    
-   
-    	
-    
-
 }

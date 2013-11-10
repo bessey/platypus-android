@@ -30,6 +30,7 @@ public class Game implements Parcelable {
 	public Game(Parcel obj) {
 		this.id = obj.readString();
 		this.current_player = obj.readParcelable(Player.class.getClassLoader());
+		firebase = new Firebase(FIRBASE_GAME_URI);
 	}
 	
 	public void addPlayer(Player player) throws IOException {	
@@ -71,7 +72,7 @@ public class Game implements Parcelable {
 		
 		firebaseMap.put("x", x);
 		firebaseMap.put("y", y);
-		new_point_node.setValue(firebaseMap);		
+		new_point_node.setValue(firebaseMap);	
 	}
 
 	@Override

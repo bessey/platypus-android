@@ -59,7 +59,6 @@ public class GameActivity extends Activity implements OnClickListener {
 		String color = b.getString("color");
 		colorID = b.getInt("colorID");
 		game = (Game) b.getParcelable("game");
-		game.addPoint(1.0f, 2.0f);
 				
 		// get drawing view
 		drawView = (DrawingView) findViewById(R.id.drawing);
@@ -73,12 +72,12 @@ public class GameActivity extends Activity implements OnClickListener {
 		// set initial size
 		drawView.setBrushSize(activeBrush);
 
-		drawtester = new DrawTester(drawView, 3);
+		/*drawtester = new DrawTester(drawView, 3);
 		drawtester2 = new DrawTester(drawView, 7);
 		drawtester3 = new DrawTester(drawView, 8);
 		drawtester.autoDraw();
 		drawtester2.autoDraw();
-		drawtester3.autoDraw();
+		drawtester3.autoDraw();*/
 
 		setTextBoxListener();
 
