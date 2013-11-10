@@ -8,6 +8,7 @@ public class PlayerPoint {
 	public float x;
 	public float y;
 	public boolean isEnd;
+	public boolean isPrevEnd = false;
 	
 	public PlayerPoint(String id , float x , float y , boolean isEnd )
 	{

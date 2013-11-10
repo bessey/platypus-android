@@ -31,7 +31,7 @@ public class DrawingView extends View {
 	private Paint drawPaint, canvasPaint;
 	// initial colour
 	private int paintColor = 0xFF660000;
-	private int colorNumber = 1;
+	private int colorNumber =1;
 	// canvas
 	private Canvas drawCanvas;
 	// canvas bitmap
@@ -105,7 +105,7 @@ public class DrawingView extends View {
 			switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				drawPath.moveTo(touchX, touchY);
-				addNewDrawPoint(touchX, touchY, colorNumber, false);
+				addNewDrawPoint(touchX, touchY, colorNumber, true);
 				break;
 			case MotionEvent.ACTION_MOVE:
 				drawPath.lineTo(touchX, touchY);
@@ -195,8 +195,6 @@ public class DrawingView extends View {
 	public void addPoint(DrawPoint point) {
 
 		boolean draw = false;
-		float tempX = 0;
-		float tempY = 0;
 		float lastX = 0;
 		float lastY = 0;
 		
@@ -205,22 +203,31 @@ public class DrawingView extends View {
 		{
 			if(point.playerID.equals(playerPoint.id))
 			{
-				tempX = point.x;
-				tempY = point.y;
+				
 				lastX = playerPoint.x;
 				lastY = playerPoint.y;
 							
 				playerPoint.x =  point.x;
 				playerPoint.y = point.y;
 				
-				if(playerPoint.isEnd == true)
+				if(point.isEnd == true)
 				{
 					draw = false;
 					playerPoint.isEnd  = false;
+					playerPoint.isPrevEnd = true;
 				}
 				else
 				{
-					draw = true;
+					if(playerPoint.isPrevEnd == true)
+					{
+						draw = false;
+						playerPoint.isPrevEnd = false;
+					}
+					else
+					{
+						draw = true;
+					}
+					
 				}
 				
 				found = true;
