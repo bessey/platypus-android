@@ -21,7 +21,6 @@
             android:theme="@android:style/Theme.Holo.NoActionBar" >
 
         </activity>
-<<<<<<< HEAD
         
         
            <meta-data
@@ -64,30 +63,3 @@
 
 </manifest>
 
-=======
-        <activity
-            android:name="GameActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" >
-        </activity>
-        <activity
-            android:name="MenuActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" >
-        </activity>
-        <activity
-            android:name="ColorPickerActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" >
-        </activity>
-        <activity
-            android:name="MatchMakerActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" >
-        </activity>
-        <activity android:name="com.facebook.LoginActivity" >
-        </activity>
-
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id" />
-    </application>
-
-</manifest>
->>>>>>> 69da312b19d7aba43d713584925d41cf28fcd953
