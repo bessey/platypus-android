@@ -3,5 +3,9 @@
 
 
     <color name="title_menu_background">#000000</color>
-    <color name="title_menu_text">#000000</color>
+    <color name="title_menu_text">#FFFFFF</color>
+    
+        <color name="draw_a_background">#19A3FF</color>
+    
+    
 </resources>

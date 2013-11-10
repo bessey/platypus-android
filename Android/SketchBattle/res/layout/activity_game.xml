@@ -1,10 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity"
-    tools:ignore="MergeRootFrame" >
+    android:background="#FFCCCCCC"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+    
+    <include layout="@layout/titlebar_layout" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
 
-</FrameLayout>
+    
+
+    <io.platypus.DrawingView
+        android:id="@+id/drawing"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1"
+        android:background="#FFFFFFFF" />
+
+ <include
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     layout="@layout/guess_item" />
+ 
+ 
+  
+ 
+ k
+
+</LinearLayout>
