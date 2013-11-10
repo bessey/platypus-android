@@ -67,7 +67,7 @@ public class GameActivity extends Activity implements OnClickListener {
 				Log.e("dw", "drawPoint");
 				double x = (Double) snapshot.child("x").getValue();
 				double y = (Double) snapshot.child("y").getValue();
-				int color_id = (Integer) snapshot.child("color_id").getValue();
+				long color_id = (Long) snapshot.child("color_id").getValue();
 				boolean is_end = (Boolean) snapshot.child("is_end").getValue();
 				
 			//	double color_id = 2;
