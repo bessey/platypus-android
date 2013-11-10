@@ -2,6 +2,8 @@ package io.platypus;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import io.platypus.drawing.DrawTester;
@@ -73,6 +76,9 @@ public class GameActivity extends Activity implements OnClickListener {
         drawtester2.autoDraw();
         drawtester3.autoDraw();
         
+        
+        setTextBoxListener();
+        
         //save button
         menuButton = (ImageButton)findViewById(R.id.btn_menu);
         menuButton.setOnClickListener(this);
@@ -85,6 +91,40 @@ public class GameActivity extends Activity implements OnClickListener {
         return true;
     }
 
+    
+    
+    public void setTextBoxListener()
+    {
+    	EditText searchTo = (EditText)findViewById(R.id.txt_guessbox);
+    	searchTo.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            			
+            	String test = s.toString();
+              
+                String t = test;
+            }
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+        });
+    	
+    	
+    }
+    
+    
     
     @Override
     public void onClick(View view){
@@ -102,5 +142,8 @@ public class GameActivity extends Activity implements OnClickListener {
     {
     	return drawView;
     }
+    
+    
+    
 
 }

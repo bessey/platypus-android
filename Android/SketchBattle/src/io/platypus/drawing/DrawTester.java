@@ -11,8 +11,8 @@ public class DrawTester
 	private DrawingView drawView;
 	private int color = 3;
 	
-	private int lastX = 400;
-	private int lastY = 400;
+	private float lastX = 0.5f;
+	private float lastY = 0.5f;
 	
 	Random random = new Random();
 	
@@ -20,6 +20,9 @@ public class DrawTester
 	{
 		this.drawView = drawView;
 		this.color = color;
+		
+		lastX = random.nextFloat();
+		lastY = random.nextFloat();
 	}
 	
 	
@@ -37,7 +40,7 @@ public class DrawTester
 	        	drawPoints();
 	        	autoDraw();
 	        }
-	    }, 10);
+	    }, 100);
 
 	}
 	
@@ -52,21 +55,21 @@ public class DrawTester
 		
 		do
 		{
-			 xE = random.nextInt(1000);
-			 yE = random.nextInt(1800);
+			 xE = random.nextFloat();
+			 yE = random.nextFloat();
 			
 		 distance = (float)Math.sqrt((lastX-xE)*(lastX-xE) + (lastY-yE)*(lastY-yE));
 		
-		}while(distance > 100f);
+		}while(distance > 0.1f);
 			
 		DrawPoint drawPoint = new DrawPoint(lastX,lastY,color,false);
 		DrawPoint drawPointE = new DrawPoint(xE,yE,color,false);
 		
-		lastX = (int)xE;
-		lastY = (int)yE;
+		lastX = xE;
+		lastY = yE;
 		
 		drawView.addPoint(drawPoint,drawPointE);
-	
+	 
 	}
 	
 }

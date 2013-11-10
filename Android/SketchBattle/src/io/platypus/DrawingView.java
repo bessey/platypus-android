@@ -102,26 +102,21 @@ public class DrawingView extends View {
     	
         float touchX = event.getX();
         float touchY = event.getY();
-        DrawPoint drawPoint;
-        
+
         //respond to down, move and up events
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawPath.moveTo(touchX, touchY);
-                drawPoint = new DrawPoint(touchX , touchY ,colorNumber ,true );
-                drawPoints.add(drawPoint);
+                addNewDrawPoint(touchX , touchY ,colorNumber ,true );
                 break;
             case MotionEvent.ACTION_MOVE:
                 drawPath.lineTo(touchX, touchY);
-                drawPoint = new DrawPoint(touchX , touchY ,colorNumber ,true );
-                drawPoints.add(drawPoint);
-                
+                addNewDrawPoint(touchX , touchY ,colorNumber ,true );
                 break;
             case MotionEvent.ACTION_UP:
                 drawPath.lineTo(touchX, touchY);
                 drawCanvas.drawPath(drawPath, drawPaint);
-                drawPoint = new DrawPoint(touchX , touchY ,colorNumber ,true );
-                drawPoints.add(drawPoint);
+                addNewDrawPoint(touchX , touchY ,colorNumber ,true );
                 drawPath.reset();
                 break;
             default:
@@ -141,6 +136,18 @@ public class DrawingView extends View {
         return true;
     }
 
+    
+    private void addNewDrawPoint(float x , float y , int colorNumber , boolean isEnd)
+    {
+    	float convertedX = x/this.getWidth();
+    	float convertedY = y/this.getHeight();
+    	
+        DrawPoint drawPoint = new DrawPoint(convertedX , convertedY ,colorNumber ,true );
+        drawPoints.add(drawPoint);
+    }
+    
+    
+    
     //update Color
     public void setColor( int activeColorID){
         invalidate();
@@ -184,6 +191,12 @@ public class DrawingView extends View {
     public void addPoint(DrawPoint point , DrawPoint end)
     {
     	
+    	
+    	float startX = this.getWidth() * point.x;
+    	float startY = this.getHeight() * point.y;
+    	float endX = this.getWidth() * end.x;
+    	float endY = this.getHeight() * end.y;
+    	
     	String colorString= getColor(point.color);
     	
     	 int tempColor = Color.parseColor(colorString);
@@ -197,8 +210,8 @@ public class DrawingView extends View {
          tempPaint.setStrokeCap(Paint.Cap.ROUND);
         
     	Path tempPath = new Path();
-    	tempPath.moveTo(point.x, point.y);
-    	tempPath.lineTo(end.x, end.y);
+    	tempPath.moveTo(startX, startY);
+    	tempPath.lineTo(endX, endY);
     	 drawCanvas.drawPath(tempPath, tempPaint);
     	
     	 
